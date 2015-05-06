@@ -178,7 +178,7 @@ public class RecuitSimule {
 	 * @param Tf température finale
 	 * @param pas le pas de décrémentation de l'algorithme
 	 */
-	public void recuitSimule (double Ti, double Tf, double pas) throws GrillePasValide {
+	public void recuitSimule (int verbose, double Ti, double Tf, double pas) throws GrillePasValide {
 		int E = 81;                      //Nombre de cases non vides
 		double T = Ti;                   //Température de l'algorithme
 		double aleatoire;                //Nombre aléatoire compris entre 0 et 1
@@ -195,7 +195,7 @@ public class RecuitSimule {
 		int cnd = 0;                     //nombre de dégradations potentielles
 		int count = 0;                   //nombre d'itérations 
 		while((T>Tf) && (E>Ef)) {
-			if(count%10000==0) {
+			if(count%10000==0 && verbose == 1) {
 				System.out.println("T =" + T + "\nE =" + E + "\n");
 			}
 			aleatoire = Math.random()/10;
@@ -204,7 +204,7 @@ public class RecuitSimule {
 			//Si la case est vide et que la proba est adequate on degrade
 			if (temp.sudoku.grille[i][j]==0) {
 				++cnd;
-				if(count%10000==0) {
+				if(count%10000==0 && verbose == 1) {
 					System.out.println("degrade si prob:\ni = " + i +" ,j = " + j +"\naleatoire = " + aleatoire + "\n");
 				}
 				if (aleatoire<this.loiProbabilite(1, T)) {
@@ -222,7 +222,7 @@ public class RecuitSimule {
 					temp.sudoku.grille[i][j] = this.sudoku.grille[i][j];
 					E++;
 				}
-				if(count%10000==0) {
+				if(count%10000==0 && verbose == 1) {
 					System.out.println(temp.sudoku);
 					System.out.println("amelioration critere:\ni = " + i + ",j = " + j + "\nE = " + E + "\n");
 				}
@@ -234,10 +234,12 @@ public class RecuitSimule {
 			T-=pas;
 		}
 		sudoku = meilleur;
-		System.out.println("Grille vidée : " + temp.sudoku);
-		System.out.println("nombre de dégradations effectuées : " + (cnd-cd));
-		System.out.println("E = " + E + ", T = " + T + "\n");
-		System.out.println("La meilleure solution trouvée est : \n" + meilleur + "avec E = " + Emeilleur);
+		if (verbose == 1) {
+			System.out.println("Grille vidée : " + temp.sudoku);
+			System.out.println("nombre de dégradations effectuées : " + (cnd-cd));
+			System.out.println("E = " + E + ", T = " + T + "\n");
+			System.out.println("La meilleure solution trouvée est : \n" + meilleur + "avec E = " + Emeilleur);
+		}
 	}
 	
 	/** Vidage du sudoku par bruteForce
