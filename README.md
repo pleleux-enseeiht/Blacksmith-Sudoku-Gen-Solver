@@ -60,6 +60,8 @@ pas     0.0002
 **Sudoku Solver**
 *java TestSolver [grid_file]*
 
+For details on the library, consult javadoc.
+
 ## Details
 #### Sudoku games generator with simulated annealing
 The principle of **simulated annealing** is based on metallurgical techniques: to cool down a metal, you must bring a little heat from time to time to minimize its energy in order to make it as solid as possible. In practical, with an optimisation (minimisation) problem, this method allows not to converge to a **local minimum** too fast. By "crossing over a pass", i.e. going through worst case with respect to the goal, we widen the search space to look for the **global minimum**.
