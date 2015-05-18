@@ -7,15 +7,15 @@ import java.util.Random;
  */
 
 public class RecuitSimule {
-	
+
 	Sudoku sudoku;  //sudoku que l'on va vider par recuit simule et backtrack
-	
+
 	/** Constructeur de RecuitSimule a partir de rien (initialisation du sudoku)
 	 */
 	public RecuitSimule() {
 		this.sudoku = new Sudoku();
 	}
-	
+
 	/** Constructeur de RecuitSimule a partir du sudoku que l'on va vider par recuit
 	 * simule et backtrack
 	 * @param _sudoku que l'on clone pour le vider
@@ -24,7 +24,7 @@ public class RecuitSimule {
 		sudoku = new Sudoku();
 		sudoku.clone(_sudoku);
 	}
-	
+
 	/** Donne le nombre d'occurences d'une valeur dans un tableau d'entiers
 	 * @param vecteur le tableau d'entiers
 	 * @param valeur la valeur à chercher
@@ -39,7 +39,7 @@ public class RecuitSimule {
 		}
 		return nombreOccurences;
 	}
-	
+
 	/** Donne la position de la première occurence d'une valeur dans un tableau d'entiers
 	 * @param vecteur le tableau d'entiers
 	 * @param valeur la valeur à chercher
@@ -53,7 +53,7 @@ public class RecuitSimule {
 		}
 		return -1;
 	}
-	
+
 	/** Renvoie le nombre de solutions d'un sudoku
 	 * @param _sudoku le sudoku à résoudre
 	 * @return le nombre de solutions de _sudoku
@@ -90,7 +90,7 @@ public class RecuitSimule {
 			return this.bruteForce(tableau, _sudoku);
 		}
 	}
-	
+
 	/** Calcule solutionUnique en testant le remplissage des cases vides par
 	 * toutes leurs valeurs possibles
 	 * @param tableau le tableau des possibilités du sudoku
@@ -111,9 +111,8 @@ public class RecuitSimule {
 		}
 		return nombrePositions;
 	}
-	
-	/** Renvoie une solution d'un sudoku
-	 * @param _sudoku le sudoku à résoudre
+
+	/** Renvoie une solution du sudoku
 	 * @return le sudoku solution
 	 * @exception GrillePasValide si une des cases n'a aucune possibilité
 	 */
@@ -148,7 +147,7 @@ public class RecuitSimule {
 			return this.solverBruteForce(tableau, _sudoku);
 		}
 	}
-	
+
 	/** Calcule solutionUnique en testant le remplissage des cases vides par
 	 * toutes leurs valeurs possibles
 	 * @param tableau le tableau des possibilités du sudoku
@@ -172,7 +171,7 @@ public class RecuitSimule {
 		}
 		return null;
 	}
-	
+
 	/** Vide un sudoku en utilisant le recuit simulé
 	 * @param Ti température initiale
 	 * @param Tf température finale
@@ -234,14 +233,11 @@ public class RecuitSimule {
 			T-=pas;
 		}
 		sudoku = meilleur;
-		if (verbose == 1) {
-			System.out.println("Grille vidée : " + temp.sudoku);
-			System.out.println("nombre de dégradations effectuées : " + (cnd-cd));
-			System.out.println("E = " + E + ", T = " + T + "\n");
-			System.out.println("La meilleure solution trouvée est : \n" + meilleur + "avec E = " + Emeilleur);
-		}
+		System.out.println("nombre de dégradations effectuées : " + (cnd-cd));
+		System.out.println("E = " + E + ", T = " + T + "\n");
+		System.out.println("La meilleure solution trouvée est : \n" + meilleur + "avec E = " + Emeilleur);
 	}
-	
+
 	/** Vidage du sudoku par bruteForce
 	 * @return le sudoku vidé
 	 */
@@ -282,7 +278,7 @@ public class RecuitSimule {
 		}
 		return meilleur;
 	}
-	
+
 	/** Clone un RecuitSimule en clonant le sudoku
 	 * @param recuit le RecuitSimule à cloner
 	 */
@@ -293,7 +289,7 @@ public class RecuitSimule {
 			}
 		}
 	}
-	
+
 	/** Calcule la loi de probabilité exp(-de/T)
 	 * @param de le paramètre delta
 	 * @param T la température
@@ -301,6 +297,13 @@ public class RecuitSimule {
 	 */
 	public double loiProbabilite (int de, double T) {
 		return Math.exp(-((double) de/ T));
+	}
+
+	/** Retourne le sudoku
+	 * @return le sudoku
+	 */
+	public Sudoku getSudoku() {
+		return this.sudoku;
 	}
 
 }

@@ -20,12 +20,20 @@ public class Sudoku {
 		try{
 			grille = new int[9][9];  //grille de sudoku
 			String line;             //parcours par ligne du fichier
-			int i, j;				 //numéros de ligne et colonne
+			int i, j;		 //numéros de ligne et colonne
+			int count = 0;
+			int k;
 			BufferedReader in  = new BufferedReader(new FileReader(fichier));
 			for(i=0; i<9; ++i) {
 				line = in.readLine();
+				count = 0;
 				for(j=0; j<9; ++j) {
-					grille[i][j] = Integer.parseInt(line.substring(j, j+1));
+					k = j + count;
+					if (line.substring(k, k+1).equals(" ")) {
+						count++;
+					}
+					k = j + count;
+					grille[i][j] = Integer.parseInt(line.substring(k, k+1));
 				}
 			}
 			in.close();
@@ -213,7 +221,7 @@ public class Sudoku {
 	public void genererSudoku() {
 		int k;                       //parcours chiffres
 		int i, j;                    //parcours ligne et numéro
-                                     //case aléatoire pour permutations
+	                                     //case aléatoire pour permutations
 		int m, n;                    //case aléatoire pour permutations
 		int pos;                     //position de placement aléatoire de départ
 		int critere;                 //critere calculé
@@ -225,6 +233,7 @@ public class Sudoku {
 		for(k=0; k<9; ++k) {
 			credit[k] = 9;
 		}
+		//lancement du recuit
 		//remplissage de la grille aleatoirement avec les credits
 		for (i = 0; i < 9; i++){
 			for (j = 0; j < 9; j++){
@@ -232,7 +241,7 @@ public class Sudoku {
 				while (credit[pos]==0) {
 					pos = rand.nextInt(9);
 				}
-				credit[pos] = credit[pos]-1;
+				credit[pos]--;
 				grille[i][j] = pos+1;
 			}
 		}
